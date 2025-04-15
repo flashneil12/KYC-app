@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cashing KYC Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --primary-orange: #ea580c;
+            --secondary-orange: #fb923c;
+            --light-orange: #FADDC7;
+            --gradient-start: #83b6e9;
+            --gradient-mid: #9191d0;
+            --gradient-end: #d8beaa;
+        }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--light-blue), var(--light-orange));
+            font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+       /**.status-bar {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 4px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #333;
+        }
+        
+        .status-bar-left, .status-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }**/
+        s
+        .app-container {
+           max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            min-height: calc(100vh - 28px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+
+        
+        .back-button {
+            margin-right: 16px;
+            font-size: 20px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .app-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .app-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+
+        .app-logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            color: navy;
+        }
+        
+        .app-logo-name {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+
+        
+        .user-profile {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--light-blue), var(--light-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            color: var(--primary-blue);
+            font-size: 20px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        
+        .user-id {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .dropdown-icon {
+            color: var(--primary-blue);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+        }
+        
+        .form-container {
+            flex: 1;
+            padding: 0 16px 80px;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+        
+        .form-section-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .form-section-title i {
+            margin-right: 10px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, var(--light-blue), var(--light-orange));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .required::after {
+            content: " *";
+            color: #dc2626;
+            font-weight: bold;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #eef2ff;
+            border-radius: 12px;
+            font-size: 14px;
+            background-color: #f8faff;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+        }
+        
+        .form-input:hover {
+            border-color: #dbeafe;
+            background-color: #fff;
+        }
+        
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .nav-button {
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        
+        .nav-button-next {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-button-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .nav-button-next:active {
+            transform: translateY(1px);
+        }
+        
+        .nav-button-back {
+            background: #f1f5f9;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .nav-button-back:hover {
+            background: #e2e8f0;
+        }
+        
+        .form-select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231e40af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .form-select:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-radio-group {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+        
+        .form-radio-label:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .form-radio {
+            margin-right: 8px;
+            accent-color: var(--primary-blue);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .form-checkbox {
+            margin-right: 8px;
+            accent-color: var(--primary-blue);
+            width: 18px;
+            height: 18px;
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+        
+        .form-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+        
+        .progress-container {
+            padding: 5px;
+            margin: 20px;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+            margin: 20px 0;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: rgba(0, 0, 0, 0.1);
+            transform: translateY(-50%);
+            z-index: -1;
+            border-radius: 4px;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            transform: translateY(-50%);
+            z-index: -1;
+            border-radius: 4px;
+            width: calc((100% / 4) * (var(--step-active) - 1));
+            transition: width 0.3s ease;
+        }
+        
+        .progress-step {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #666;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-step.active {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .progress-step.completed {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: white;
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
+        
+        .progress-step-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            white-space: nowrap;
+        }
+        
+        .form-page {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .form-page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 16px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        @media (min-width: 640px) {
+            .bottom-navigation {
+                /**max-width: 400px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-radius: 12px 12px 0 0;**/
+            }
+        }
+        
+        .nav-button {
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-button-back {
+            background-color: #f0f0f0;
+            color: #444;
+        }
+        
+        .nav-button-back:active {
+            background-color: #e0e0e0;
+            transform: translateY(1px);
+        }
+        
+        .nav-button-next {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+        }
+        
+        .nav-button-next:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-button-submit {
+            background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+            color: white;
+        }
+        
+        .nav-button-submit:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-button i {
+            margin-right: 8px;
+        }
+        
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px;
+            background-color: #f9f9f9;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .file-upload-label:hover {
+            background-color: #f0f0f0;
+            border-color: var(--primary-blue);
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-upload-icon {
+            margin-right: 10px;
+            color: var(--primary-blue);
+            font-size: 20px;
+        }
+        
+        .signature-container {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: white;
+        }
+        
+        #signatureCanvas {
+            width: 100%;
+            height: 180px;
+            background-color: white;
+            cursor: crosshair;
+        }
+        
+        .signature-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+        }
+        
+        .clear-signature {
+            font-size: 12px;
+            color: var(--primary-blue);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .clear-signature:hover {
+            background-color: var(--light-blue);
+        }
+        
+        .review-section {
+            margin-bottom: 20px;
+        }
+        
+        .review-section-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .review-item {
+            display: flex;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .review-label {
+            font-weight: 500;
+            width: 40%;
+            color: #555;
+        }
+        
+        .review-value {
+            width: 60%;
+            color: #333;
+        }
+        
+        .success-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 70px;
+            color: #4CAF50;
+            margin-bottom: 24px;
+        }
+        
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 16px;
+        }
+        
+        .success-message {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .reference-number {
+            background: linear-gradient(135deg, var(--light-blue), var(--light-orange));
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .reference-number-value {
+            font-weight: 600;
+            color: var(--primary-blue);
+            letter-spacing: 1px;
+        }
+        
+        @media (min-width: 640px) {
+            .app-container {
+                /**max-width: 400px;**/
+                border-left: 1px solid #eee;
+                border-right: 1px solid #eee;
+                /**box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);**/
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <!--<div class="status-bar-left">
+            10:15 <i class="fas fa-signal"></i> <i class="fas fa-wifi"></i>
+        </div>
+        <div class="status-bar-right">
+            <i class="fas fa-battery-three-quarters"></i> 71%
+        </div> -->
+    </div>
+    
+    <div class="app-container">
+        <!-- App Header -->
+        <div class="app-header">
+            <div class="back-button" id="headerBackButton">
+                
+            </div>
+            <div class="app-header flex flex-col items-center justify-center p-4 ">
+                <img src="logo.png" alt="Cashing Fast Money" class="h-24 w-auto mb-2" />
+                <p class="text-2xl font-bold text-indigo-600 drop-shadow-md tracking-[0.2rem] text-center">
+                    <span class="text-indigo-700">KYC</span> <span class="text-orange-500">Verification Process</span>
+                </p>
+                
+                  </p>
+              </div>
+            </div> 
+        </div> 
+        
+        <!-- User Profile -->
+
+            
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar" style="--step-active: 1;">
+                <div class="progress-step active" id="step1">
+                    1
+                    <div class="progress-step-label">Personal</div>
+                </div>
+                <div class="progress-step" id="step2">
+                    2
+                    <div class="progress-step-label">Employment</div>
+                </div>
+                <div class="progress-step" id="step3">
+                    3
+                    <div class="progress-step-label">Documents</div>
+                </div>
+                <div class="progress-step" id="step4">
+                    4
+                    <div class="progress-step-label">Review</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <form id="kycForm">
+                <!-- Welcome Page -->
+                <div class="form-page active" id="welcomePage">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-handshake"></i> Welcome to KYC Verification
+                        </div>
+                        
+                        <div class="text-center mb-6">
+                            <div class="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-500 to-orange-400 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-white text-4xl"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-gray-800 mb-2">Secure Your Account</h2>
+                            <p class="text-gray-600">Complete this verification to unlock full access to your financial services</p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock text-blue-800"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Quick Process</h3>
+                                    <p class="text-sm text-gray-600">This verification typically takes 5-10 minutes to complete</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                    <i class="fas fa-id-card text-blue-800"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Required Documents</h3>
+                                    <p class="text-sm text-gray-600">Please have two valid IDs ready for verification</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+                                    <i class="fas fa-lock text-blue-800"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Secure & Confidential</h3>
+                                    <p class="text-sm text-gray-600">Your information is encrypted and protected</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 text-blue-800 mr-3">
+                                    <i class="fas fa-info-circle text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-blue-800">What to expect</h4>
+                                    <ul class="text-sm text-gray-700 mt-2 space-y-1 list-disc list-inside">
+                                        <li>Personal information collection</li>
+                                        <li>Employment details verification</li>
+                                        <li>Document upload and verification</li>
+                                        <li>Final review and submission</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page 1: Personal Information -->
+                <div class="form-page" id="page1">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-user"></i> Personal Information
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" required>
+                            <div class="error-message" id="lastNameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" required>
+                            <div class="error-message" id="firstNameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="mothersMaidenName">Mother's Maiden Name</label>
+                            <input type="text" id="mothersMaidenName" name="mothersMaidenName" class="form-input" required>
+                            <div class="error-message" id="mothersMaidenNameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="cardName">Name to Appear on the Card</label>
+                            <input type="text" id="cardName" name="cardName" class="form-input" maxlength="26" required>
+                            <div class="form-hint">Maximum of 26 characters including spaces</div>
+                            <div class="error-message" id="cardNameError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-home"></i> Home Address
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeAddressLine">Building/House No., Street Name</label>
+                            <input type="text" id="homeAddressLine" name="homeAddressLine" class="form-input" required>
+                            <div class="error-message" id="homeAddressLineError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeRegion">Region</label>
+                            <select id="homeRegion" name="homeRegion" class="form-select" required>
+                                <option value="">Select Region</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="homeRegionError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeProvince">Province</label>
+                            <select id="homeProvince" name="homeProvince" class="form-select" required disabled>
+                                <option value="">Select Province</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="homeProvinceError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeCity">City/Municipality</label>
+                            <select id="homeCity" name="homeCity" class="form-select" required disabled>
+                                <option value="">Select City/Municipality</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="homeCityError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeBarangay">Barangay</label>
+                            <select id="homeBarangay" name="homeBarangay" class="form-select" required disabled>
+                                <option value="">Select Barangay</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="homeBarangayError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="homeZipCode">ZIP Code</label>
+                            <input type="text" id="homeZipCode" name="homeZipCode" class="form-input" required>
+                            <div class="error-message" id="homeZipCodeError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-info-circle"></i> Additional Information
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="dateOfBirth">Date of Birth (MM-DD-YYYY)</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                            <div class="error-message" id="dateOfBirthError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required">Gender</label>
+                            <div class="form-radio-group">
+                                <label class="form-radio-label">
+                                    <input type="radio" name="gender" value="male" class="form-radio" required>
+                                    Male
+                                </label>
+                                <label class="form-radio-label">
+                                    <input type="radio" name="gender" value="female" class="form-radio">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="error-message" id="genderError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="civilStatus">Civil Status</label>
+                            <select id="civilStatus" name="civilStatus" class="form-select" required>
+                                <option value="">Select Civil Status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="widowed">Widowed/er</option>
+                            </select>
+                            <div class="error-message" id="civilStatusError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="dependents">Number of Dependents</label>
+                            <input type="number" id="dependents" name="dependents" class="form-input" min="0" required>
+                            <div class="error-message" id="dependentsError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="citizenship">Citizenship</label>
+                            <input type="text" id="citizenship" name="citizenship" class="form-input" required>
+                            <div class="error-message" id="citizenshipError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label required" for="contactNumber">Contact Number</label>
+                            <input type="tel" id="contactNumber" name="contactNumber" class="form-input" required>
+                            <div class="error-message" id="contactNumberError"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page 2: Employment Information -->
+                <div class="form-page" id="page2">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-briefcase"></i> Employment Information
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Are You Employed?</label>
+                            <div class="form-radio-group">
+                                <label class="form-radio-label">
+                                    <input type="radio" name="isEmployed" value="yes" class="form-radio" required>
+                                    Yes
+                                </label>
+                                <label class="form-radio-label">
+                                    <input type="radio" name="isEmployed" value="no" class="form-radio">
+                                    No
+                                </label>
+                            </div>
+                            <div class="error-message" id="isEmployedError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="sourceOfFunds">Source of Funds</label>
+                            <select id="sourceOfFunds" name="sourceOfFunds" class="form-select" required>
+                                <option value="">Select Source of Funds</option>
+                                <option value="employment">Employment</option>
+                                <option value="business">Business</option>
+                                <option value="allotment">Allotment</option>
+                                <option value="others">Others (Please Specify)</option>
+                            </select>
+                            <div class="error-message" id="sourceOfFundsError"></div>
+                        </div>
+                        
+                        <div class="form-group" id="otherSourceGroup" style="display: none;">
+                            <label class="form-label" for="otherSource">Please Specify Other Source</label>
+                            <input type="text" id="otherSource" name="otherSource" class="form-input">
+                            <div class="error-message" id="otherSourceError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section" id="employmentDetails">
+                        <div class="form-section-title">
+                            <i class="fas fa-building"></i> Employment Details
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="position">Position</label>
+                            <input type="text" id="position" name="position" class="form-input">
+                            <div class="error-message" id="positionError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="annualIncome">Annual Income (In PHP)</label>
+                            <input type="number" id="annualIncome" name="annualIncome" class="form-input" min="0">
+                            <div class="error-message" id="annualIncomeError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section" id="employerAddressSection">
+                        <div class="form-section-title">
+                            <i class="fas fa-map-marker-alt"></i> Business/Employer's Address
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerAddressLine">Building/House No., Street Name</label>
+                            <input type="text" id="employerAddressLine" name="employerAddressLine" class="form-input">
+                            <div class="error-message" id="employerAddressLineError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerRegion">Region</label>
+                            <select id="employerRegion" name="employerRegion" class="form-select">
+                                <option value="">Select Region</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="employerRegionError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerProvince">Province</label>
+                            <select id="employerProvince" name="employerProvince" class="form-select" disabled>
+                                <option value="">Select Province</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="employerProvinceError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerCity">City/Municipality</label>
+                            <select id="employerCity" name="employerCity" class="form-select" disabled>
+                                <option value="">Select City/Municipality</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="employerCityError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerBarangay">Barangay</label>
+                            <select id="employerBarangay" name="employerBarangay" class="form-select" disabled>
+                                <option value="">Select Barangay</option>
+                                <!-- Will be populated by API -->
+                            </select>
+                            <div class="error-message" id="employerBarangayError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="employerZipCode">ZIP Code</label>
+                            <input type="text" id="employerZipCode" name="employerZipCode" class="form-input">
+                            <div class="error-message" id="employerZipCodeError"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page 3: Document Uploads -->
+                <div class="form-page" id="page3">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-id-card"></i> Valid ID 1
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="validId1Type">ID Type</label>
+                            <select id="validId1Type" name="validId1Type" class="form-select" required>
+                                <option value="">Select ID Type</option>
+                                <option value="passport">Passport</option>
+                                <option value="drivers_license">Driver's License</option>
+                                <option value="sss">SSS ID</option>
+                                <option value="gsis">GSIS ID</option>
+                                <option value="philhealth">PhilHealth ID</option>
+                                <option value="voters_id">Voter's ID</option>
+                                <option value="postal_id">Postal ID</option>
+                                <option value="prc">PRC ID</option>
+                                <option value="national_id">National ID</option>
+                            </select>
+                            <div class="error-message" id="validId1TypeError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="validId1No">ID Number</label>
+                            <input type="text" id="validId1No" name="validId1No" class="form-input" required>
+                            <div class="error-message" id="validId1NoError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Upload ID</label>
+                            <div class="file-upload">
+                                <label class="file-upload-label">
+                                    <i class="fas fa-upload file-upload-icon"></i>
+                                    <span id="validId1Text">Choose a file</span>
+                                    <input type="file" id="validId1" name="validId1" class="file-upload-input" accept="image/*" required>
+                                </label>
+                            </div>
+                            <div class="error-message" id="validId1Error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-id-card"></i> Valid ID 2
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="validId2Type">ID Type</label>
+                            <select id="validId2Type" name="validId2Type" class="form-select" required>
+                                <option value="">Select ID Type</option>
+                                <option value="passport">Passport</option>
+                                <option value="drivers_license">Driver's License</option>
+                                <option value="sss">SSS ID</option>
+                                <option value="gsis">GSIS ID</option>
+                                <option value="philhealth">PhilHealth ID</option>
+                                <option value="voters_id">Voter's ID</option>
+                                <option value="postal_id">Postal ID</option>
+                                <option value="prc">PRC ID</option>
+                                <option value="national_id">National ID</option>
+                            </select>
+                            <div class="error-message" id="validId2TypeError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="validId2No">ID Number</label>
+                            <input type="text" id="validId2No" name="validId2No" class="form-input" required>
+                            <div class="error-message" id="validId2NoError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Upload ID</label>
+                            <div class="file-upload">
+                                <label class="file-upload-label">
+                                    <i class="fas fa-upload file-upload-icon"></i>
+                                    <span id="validId2Text">Choose a file</span>
+                                    <input type="file" id="validId2" name="validId2" class="file-upload-input" accept="image/*" required>
+                                </label>
+                            </div>
+                            <div class="error-message" id="validId2Error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-camera"></i> Selfie
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Take a Selfie</label>
+                            <div class="file-upload">
+                                <label class="file-upload-label">
+                                    <i class="fas fa-camera file-upload-icon"></i>
+                                    <span id="selfieText">Take a photo</span>
+                                    <input type="file" id="selfie" name="selfie" class="file-upload-input" accept="image/*" capture="user" required>
+                                </label>
+                            </div>
+                            <div class="error-message" id="selfieError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-signature"></i> E-Signature
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Sign Below</label>
+                            <div class="signature-container">
+                                <canvas id="signatureCanvas"></canvas>
+                            </div>
+                            <div class="signature-actions">
+                                <button type="button" class="clear-signature" id="clearSignature">Clear</button>
+                            </div>
+                            <div class="error-message" id="signatureError"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page 4: Review Information -->
+                <div class="form-page" id="page4">
+                    <div class="form-section">
+                        <div class="form-section-title">
+                            <i class="fas fa-check-circle"></i> Review Information
+                        </div>
+                        <p class="form-hint mb-4">Please review your information before submission.</p>
+                        
+                        <div class="review-section">
+                            <div class="review-section-title">Personal Information</div>
+                            <div class="review-item">
+                                <div class="review-label">Name:</div>
+                                <div class="review-value" id="reviewName"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Mother's Maiden Name:</div>
+                                <div class="review-value" id="reviewMothersMaidenName"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Card Name:</div>
+                                <div class="review-value" id="reviewCardName"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Home Address:</div>
+                                <div class="review-value" id="reviewHomeAddress"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Email:</div>
+                                <div class="review-value" id="reviewEmail"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Date of Birth:</div>
+                                <div class="review-value" id="reviewDateOfBirth"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Gender:</div>
+                                <div class="review-value" id="reviewGender"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Civil Status:</div>
+                                <div class="review-value" id="reviewCivilStatus"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Dependents:</div>
+                                <div class="review-value" id="reviewDependents"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Citizenship:</div>
+                                <div class="review-value" id="reviewCitizenship"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Contact Number:</div>
+                                <div class="review-value" id="reviewContactNumber"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-section">
+                            <div class="review-section-title">Employment Information</div>
+                            <div class="review-item">
+                                <div class="review-label">Employment Status:</div>
+                                <div class="review-value" id="reviewEmploymentStatus"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Source of Funds:</div>
+                                <div class="review-value" id="reviewSourceOfFunds"></div>
+                            </div>
+                            <div id="reviewEmploymentDetails">
+                                <div class="review-item">
+                                    <div class="review-label">Position:</div>
+                                    <div class="review-value" id="reviewPosition"></div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Annual Income:</div>
+                                    <div class="review-value" id="reviewAnnualIncome"></div>
+                                </div>
+                                <div class="review-item">
+                                    <div class="review-label">Employer Address:</div>
+                                    <div class="review-value" id="reviewEmployerAddress"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-section">
+                            <div class="review-section-title">Document Information</div>
+                            <div class="review-item">
+                                <div class="review-label">Valid ID 1:</div>
+                                <div class="review-value" id="reviewValidId1"></div>
+                            </div>
+                            <div class="review-item">
+                                <div class="review-label">Valid ID 2:</div>
+                                <div class="review-value" id="reviewValidId2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-4">
+                            <label class="form-radio-label" style="background: none; padding: 0;">
+                                <input type="checkbox" id="termsAgreement" name="termsAgreement" class="form-checkbox" required>
+                                I hereby certify that the information provided is true and correct. I authorize the bank to verify the information provided.
+                            </label>
+                            <div class="error-message" id="termsAgreementError"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <audio id="successSound" preload="auto">
+                <source src="kaching.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage" style="display: none;">
+                <div class="success-container">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-title">Application Submitted!</div>
+                    <div class="success-message">
+                        Thank you for completing your KYC application. We will review your information and get back to you shortly.
+                    </div>
+                    <div class="reference-number">
+                        Reference Number: <span id="referenceNumber" class="reference-number-value"></span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center; margin-top: 40px;">
+                        <a href="/home" style="text-decoration: none;">
+                          <button style="
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            background-color: #004aad;
+                            color: white;
+                            padding: 12px 24px;
+                            border: none;
+                            border-radius: 12px;
+                            font-size: 16px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                          ">
+                            <img src="https://cdn-icons-png.flaticon.com/512/69/69524.png" alt="Home Icon" style="width: 24px; height: 24px;" />
+                            Return Home
+                          </button>
+                        </a>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-navigation">
+            <button type="button" class="nav-button nav-button-back" id="prevButton" style="display: none;">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button type="button" class="nav-button nav-button-next" id="nextButton">
+                Get Started <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Current page tracking
+        let currentPage = 0; // 0 for welcome page, 1-4 for form pages
+        const totalPages = 4; // Not including welcome page
+        
+        // Signature canvas implementation
+        let isDrawing = false;
+        let hasSignature = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize signature canvas
+            const canvas = document.getElementById('signatureCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set up drawing properties
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+
+// ✅ Resize function
+function resizeSignatureCanvas() {
+    canvas.width = canvas.offsetWidth || 500;
+    canvas.height = canvas.offsetHeight || 180;
+
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// ✅ Call it after everything is ready
+resizeSignatureCanvas();
+
+            
+            // Fill with white background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Set up drawing properties
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            
+            // Mouse events for drawing
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // Touch events for mobile
+            canvas.addEventListener('touchstart', startDrawingTouch);
+            canvas.addEventListener('touchmove', drawTouch);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            function startDrawing(e) {
+                isDrawing = true;
+                hasSignature = true;
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            }
+            
+            function startDrawingTouch(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const offsetX = touch.clientX - rect.left;
+                const offsetY = touch.clientY - rect.top;
+                
+                isDrawing = true;
+                hasSignature = true;
+                ctx.beginPath();
+                ctx.moveTo(offsetX, offsetY);
+            }
+            
+            function drawTouch(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const offsetX = touch.clientX - rect.left;
+                const offsetY = touch.clientY - rect.top;
+                
+                ctx.lineTo(offsetX, offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(offsetX, offsetY);
+            }
+            
+            function stopDrawing() {
+                isDrawing = false;
+            }
+            
+            // Clear signature button
+            document.getElementById('clearSignature').addEventListener('click', function() {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                hasSignature = false;
+            });
+            
+            // Initialize navigation buttons
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const headerBackButton = document.getElementById('headerBackButton');
+            
+            // Header back button functionality
+            headerBackButton.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    prevPage(currentPage);
+                }
+            });
+            
+            // Update navigation buttons based on current page
+            function updateNavigationButtons() {
+                if (currentPage === 0) { // Welcome page
+                    prevButton.style.display = 'none';
+                    nextButton.innerHTML = 'Get Started <i class="fas fa-arrow-right"></i>';
+                    nextButton.className = 'nav-button nav-button-next';
+                    nextButton.onclick = function() { startForm(); };
+                    document.getElementById('progressContainer').style.display = 'none';
+                } else if (currentPage === 1) {
+                    prevButton.style.display = 'block';
+                    prevButton.innerHTML = '<i class="fas fa-arrow-left"></i> Back ';
+                    nextButton.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                    nextButton.className = 'nav-button nav-button-next';
+                    nextButton.onclick = function() { nextPage(1); };
+                    document.getElementById('progressContainer').style.display = 'block';
+                } else if (currentPage < totalPages) {
+                    prevButton.style.display = 'block';
+                    prevButton.innerHTML = '<i class="fas fa-arrow-left"></i> Back';
+                    nextButton.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+                    nextButton.className = 'nav-button nav-button-next';
+                    nextButton.onclick = function() { nextPage(currentPage); };
+                } else {
+                    prevButton.style.display = 'block';
+                    prevButton.innerHTML = '<i class="fas fa-arrow-left"></i> Back';
+                    nextButton.innerHTML = 'Submit <i class="fas fa-paper-plane"></i>';
+                    nextButton.className = 'nav-button nav-button-submit';
+                    nextButton.onclick = function() { submitForm(); };
+                }
+                
+                prevButton.onclick = function() { prevPage(currentPage); };
+            }
+            
+            // Function to start the form (transition from welcome page to first form page)
+            function startForm() {
+                currentPage = 1;
+                showPage(currentPage);
+                window.scrollTo(0, 0);
+                updateNavigationButtons();
+            }
+            
+            // Function to submit the form
+            function submitForm() {
+                if (validatePage(4)) {
+                    // Generate reference number
+                    const referenceNumber = 'KYC-' + Date.now().toString().slice(-8);
+                    document.getElementById('referenceNumber').textContent = referenceNumber;
+                    
+                    // Hide form, show success message
+                    document.getElementById('kycForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Hide progress bar and navigation
+                    document.querySelector('.progress-container').style.display = 'none';
+                    document.querySelector('.bottom-navigation').style.display = 'none';
+                    
+                    document.getElementById('successSound').play();
+                    
+                    // Update profile name
+                    const firstName = document.getElementById('firstName').value;
+                    const lastName = document.getElementById('lastName').value;
+                    if (firstName && lastName) {
+                        document.getElementById('profileName').textContent = firstName + ' ' + lastName;
+                        document.getElementById('profileId').textContent = '******' + referenceNumber.slice(-4);
+                    }
+                }
+            }
+            
+            // File upload display
+            document.getElementById('validId1').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    document.getElementById('validId1Text').textContent = e.target.files[0].name;
+                }
+            });
+            
+            document.getElementById('validId2').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    document.getElementById('validId2Text').textContent = e.target.files[0].name;
+                }
+            });
+            
+            document.getElementById('selfie').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    document.getElementById('selfieText').textContent = e.target.files[0].name;
+                }
+            });
+            
+            // Source of funds other option
+            document.getElementById('sourceOfFunds').addEventListener('change', function() {
+                const otherSourceGroup = document.getElementById('otherSourceGroup');
+                if (this.value === 'others') {
+                    otherSourceGroup.style.display = 'block';
+                    document.getElementById('otherSource').setAttribute('required', 'required');
+                } else {
+                    otherSourceGroup.style.display = 'none';
+                    document.getElementById('otherSource').removeAttribute('required');
+                }
+            });
+            
+            // Employment status toggle
+            const employmentRadios = document.querySelectorAll('input[name="isEmployed"]');
+            const employmentDetails = document.getElementById('employmentDetails');
+            const employerAddressSection = document.getElementById('employerAddressSection');
+            
+            employmentRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'yes') {
+                        employmentDetails.style.display = 'block';
+                        employerAddressSection.style.display = 'block';
+                        document.getElementById('position').setAttribute('required', 'required');
+                        document.getElementById('annualIncome').setAttribute('required', 'required');
+                        document.getElementById('employerAddressLine').setAttribute('required', 'required');
+                        document.getElementById('employerRegion').setAttribute('required', 'required');
+                    } else {
+                        employmentDetails.style.display = 'none';
+                        employerAddressSection.style.display = 'none';
+                        document.getElementById('position').removeAttribute('required');
+                        document.getElementById('annualIncome').removeAttribute('required');
+                        document.getElementById('employerAddressLine').removeAttribute('required');
+                        document.getElementById('employerRegion').removeAttribute('required');
+                    }
+                });
+            });
+            
+            // Initialize PSGC API data
+            fetchRegions('homeRegion');
+            fetchRegions('employerRegion');
+            
+            // Set up region change listeners
+            document.getElementById('homeRegion').addEventListener('change', function() {
+                if (this.value) {
+                    fetchProvinces(this.value, 'homeProvince');
+                    document.getElementById('homeProvince').disabled = false;
+                    document.getElementById('homeCity').disabled = true;
+                    document.getElementById('homeBarangay').disabled = true;
+                }
+            });
+            
+            document.getElementById('homeProvince').addEventListener('change', function() {
+                if (this.value) {
+                    fetchCities(this.value, 'homeCity');
+                    document.getElementById('homeCity').disabled = false;
+                    document.getElementById('homeBarangay').disabled = true;
+                }
+            });
+            
+            document.getElementById('homeCity').addEventListener('change', function() {
+                if (this.value) {
+                    fetchBarangays(this.value, 'homeBarangay');
+                    document.getElementById('homeBarangay').disabled = false;
+                }
+            });
+            
+            document.getElementById('employerRegion').addEventListener('change', function() {
+                if (this.value) {
+                    fetchProvinces(this.value, 'employerProvince');
+                    document.getElementById('employerProvince').disabled = false;
+                    document.getElementById('employerCity').disabled = true;
+                    document.getElementById('employerBarangay').disabled = true;
+                }
+            });
+            
+            document.getElementById('employerProvince').addEventListener('change', function() {
+                if (this.value) {
+                    fetchCities(this.value, 'employerCity');
+                    document.getElementById('employerCity').disabled = false;
+                    document.getElementById('employerBarangay').disabled = true;
+                }
+            });
+            
+            document.getElementById('employerCity').addEventListener('change', function() {
+                if (this.value) {
+                    fetchBarangays(this.value, 'employerBarangay');
+                    document.getElementById('employerBarangay').disabled = false;
+                }
+            });
+            
+            // Initialize navigation
+            updateNavigationButtons();
+            
+            // Add click event to the Get Started button
+            document.getElementById('nextButton').addEventListener('click', function() {
+                if (currentPage === 0) {
+                    startForm();
+                }
+            });
+            
+            // Make navigation functions global
+            window.nextPage = function(pageNum) {
+                if (validatePage(pageNum)) {
+                    currentPage = pageNum + 1;
+                    showPage(currentPage);
+                    window.scrollTo(0, 0);
+                    updateNavigationButtons();
+                }
+            };
+            
+            window.prevPage = function(pageNum) {
+                if (pageNum === 1) {
+                    // Going back to welcome page
+                    currentPage = 0;
+                } else {
+                    currentPage = pageNum - 1;
+                }
+                showPage(currentPage);
+                window.scrollTo(0, 0);
+                updateNavigationButtons();
+            };
+        });
+        
+        // Navigation functions
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('.form-page').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // Show the current page
+            if (page === 0) {
+                document.getElementById('welcomePage').classList.add('active');
+            } else {
+                document.getElementById('page' + page).classList.add('active');
+                
+                // Update progress steps and progress bar
+                document.querySelector('.progress-bar').style.setProperty('--step-active', page);
+                
+                for (let i = 1; i <= totalPages; i++) {
+                    const step = document.getElementById('step' + i);
+                    if (i < page) {
+                        step.classList.remove('active');
+                        step.classList.add('completed');
+                        step.innerHTML = '<i class="fas fa-check"></i>';
+                    } else if (i === page) {
+                        step.classList.add('active');
+                        step.classList.remove('completed');
+                        step.textContent = i;
+                        // Add the label back since textContent removed it
+                        const label = document.createElement('div');
+                        label.className = 'progress-step-label';
+                        
+                        // Set the appropriate label text
+                        if (i === 1) label.textContent = 'Personal';
+                        else if (i === 2) label.textContent = 'Employment';
+                        else if (i === 3) label.textContent = 'Documents';
+                        else if (i === 4) label.textContent = 'Review';
+                        
+                        step.appendChild(label);
+                    } else {
+                        step.classList.remove('active', 'completed');
+                        step.textContent = i;
+                     // Add the label back since textContent removed it
+                        const label = document.createElement('div');
+                        label.className = 'progress-step-label';
+                        
+                        // Set the appropriate label text
+                        if (i === 1) label.textContent = 'Personal';
+                        else if (i === 2) label.textContent = 'Employment';
+                        else if (i === 3) label.textContent = 'Documents';
+                        else if (i === 4) label.textContent = 'Review';
+                        
+                        step.appendChild(label);
+                    }
+                }
+                
+                // If on review page, populate review data
+                if (page === 4) {
+                    populateReviewPage();
+                }
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const labels = document.querySelectorAll('label');
+        
+            labels.forEach(label => {
+                const inputId = label.getAttribute('for');
+                if (!inputId) return;
+        
+                const input = document.getElementById(inputId);
+                if (input && input.hasAttribute('required')) {
+                    label.classList.add('required');
+                }
+            });
+        });
+        
+        // Form validation
+        function validatePage(page) {
+            let isValid = true;
+            
+            // Clear all error messages
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.textContent = '';
+            });
+            
+            if (page === 1) {
+                // Validate personal information
+                const requiredFields = ['lastName', 'firstName', 'mothersMaidenName', 'cardName', 
+                                       'homeAddressLine', 'homeRegion', 'homeProvince', 'homeCity', 
+                                       'homeBarangay', 'homeZipCode', 'email', 'dateOfBirth', 
+                                       'citizenship', 'contactNumber'];
+                
+                requiredFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (!input.value.trim() && input.hasAttribute('required')) {
+                        document.getElementById(field + 'Error').textContent = 'This field is required';
+                        isValid = false;
+                    }
+                });
+                
+                // Validate email format
+                const email = document.getElementById('email').value;
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                    isValid = false;
+                }
+                
+                // Validate gender
+                const genderSelected = document.querySelector('input[name="gender"]:checked');
+                if (!genderSelected) {
+                    document.getElementById('genderError').textContent = 'Please select a gender';
+                    isValid = false;
+                }
+                
+                // Validate civil status
+                if (!document.getElementById('civilStatus').value) {
+                    document.getElementById('civilStatusError').textContent = 'Please select your civil status';
+                    isValid = false;
+                }
+            }
+            
+            else if (page === 2) {
+                // Validate employment information
+                const isEmployedSelected = document.querySelector('input[name="isEmployed"]:checked');
+                if (!isEmployedSelected) {
+                    document.getElementById('isEmployedError').textContent = 'Please select your employment status';
+                    isValid = false;
+                }
+                
+                if (!document.getElementById('sourceOfFunds').value) {
+                    document.getElementById('sourceOfFundsError').textContent = 'Please select your source of funds';
+                    isValid = false;
+                }
+                
+                // If "Others" is selected for source of funds, validate the other source field
+                if (document.getElementById('sourceOfFunds').value === 'others' && 
+                    !document.getElementById('otherSource').value.trim()) {
+                    document.getElementById('otherSourceError').textContent = 'Please specify your other source of funds';
+                    isValid = false;
+                }
+                
+                // If employed, validate employment details
+                if (isEmployedSelected && isEmployedSelected.value === 'yes') {
+                    const employmentFields = ['position', 'annualIncome', 'employerAddressLine', 
+                                             'employerRegion', 'employerProvince', 'employerCity', 
+                                             'employerBarangay', 'employerZipCode'];
+                    
+                    employmentFields.forEach(field => {
+                        const input = document.getElementById(field);
+                        if (!input.value.trim() && input.hasAttribute('required')) {
+                            document.getElementById(field + 'Error').textContent = 'This field is required';
+                            isValid = false;
+                        }
+                    });
+                }
+            }
+            
+            else if (page === 3) {
+                // Validate document information
+                const documentFields = ['validId1Type', 'validId1No', 'validId2Type', 'validId2No'];
+                
+                documentFields.forEach(field => {
+                    const input = document.getElementById(field);
+                    if (!input.value.trim()) {
+                        document.getElementById(field + 'Error').textContent = 'This field is required';
+                        isValid = false;
+                    }
+                });
+                
+                // Validate file uploads
+                if (!document.getElementById('validId1').files.length) {
+                    document.getElementById('validId1Error').textContent = 'Please upload your first valid ID';
+                    isValid = false;
+                }
+                
+                if (!document.getElementById('validId2').files.length) {
+                    document.getElementById('validId2Error').textContent = 'Please upload your second valid ID';
+                    isValid = false;
+                }
+                
+                if (!document.getElementById('selfie').files.length) {
+                    document.getElementById('selfieError').textContent = 'Please upload your selfie';
+                    isValid = false;
+                }
+                
+                // Validate signature
+                if (!hasSignature) {
+                    document.getElementById('signatureError').textContent = 'Please provide your signature';
+                    isValid = false;
+                }
+            }
+            
+            else if (page === 4) {
+                // Validate terms agreement
+                if (!document.getElementById('termsAgreement').checked) {
+                    document.getElementById('termsAgreementError').textContent = 'You must agree to the terms to proceed';
+                    isValid = false;
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Populate review page with form data
+        function populateReviewPage() {
+            // Personal information
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            document.getElementById('reviewName').textContent = `${firstName} ${lastName}`;
+            
+            document.getElementById('reviewMothersMaidenName').textContent = document.getElementById('mothersMaidenName').value;
+            document.getElementById('reviewCardName').textContent = document.getElementById('cardName').value;
+            
+            // Format address
+            const homeAddress = [
+                document.getElementById('homeAddressLine').value,
+                document.getElementById('homeBarangay').options[document.getElementById('homeBarangay').selectedIndex]?.text || '',
+                document.getElementById('homeCity').options[document.getElementById('homeCity').selectedIndex]?.text || '',
+                document.getElementById('homeProvince').options[document.getElementById('homeProvince').selectedIndex]?.text || '',
+                document.getElementById('homeRegion').options[document.getElementById('homeRegion').selectedIndex]?.text || '',
+                document.getElementById('homeZipCode').value
+            ].filter(Boolean).join(', ');
+            
+            document.getElementById('reviewHomeAddress').textContent = homeAddress;
+            document.getElementById('reviewEmail').textContent = document.getElementById('email').value;
+            
+            // Format date of birth
+            const dob = new Date(document.getElementById('dateOfBirth').value);
+            const formattedDob = dob instanceof Date && !isNaN(dob) ? 
+                dob.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }) : 
+                document.getElementById('dateOfBirth').value;
+            
+            document.getElementById('reviewDateOfBirth').textContent = formattedDob;
+            
+            // Gender
+            const genderRadio = document.querySelector('input[name="gender"]:checked');
+            document.getElementById('reviewGender').textContent = genderRadio ? 
+                genderRadio.value.charAt(0).toUpperCase() + genderRadio.value.slice(1) : '';
+            
+            // Civil status
+            const civilStatusSelect = document.getElementById('civilStatus');
+            document.getElementById('reviewCivilStatus').textContent = civilStatusSelect.options[civilStatusSelect.selectedIndex]?.text || '';
+            
+            document.getElementById('reviewDependents').textContent = document.getElementById('dependents').value;
+            document.getElementById('reviewCitizenship').textContent = document.getElementById('citizenship').value;
+            document.getElementById('reviewContactNumber').textContent = document.getElementById('contactNumber').value;
+            
+            // Employment information
+            const isEmployedRadio = document.querySelector('input[name="isEmployed"]:checked');
+            document.getElementById('reviewEmploymentStatus').textContent = isEmployedRadio ? 
+                (isEmployedRadio.value === 'yes' ? 'Employed' : 'Not Employed') : '';
+            
+            // Source of funds
+            const sourceOfFundsSelect = document.getElementById('sourceOfFunds');
+            let sourceOfFundsText = sourceOfFundsSelect.options[sourceOfFundsSelect.selectedIndex]?.text || '';
+            
+            if (sourceOfFundsSelect.value === 'others') {
+                sourceOfFundsText += ': ' + document.getElementById('otherSource').value;
+            }
+            
+            document.getElementById('reviewSourceOfFunds').textContent = sourceOfFundsText;
+            
+            // Employment details
+            if (isEmployedRadio && isEmployedRadio.value === 'yes') {
+                document.getElementById('reviewEmploymentDetails').style.display = 'block';
+                document.getElementById('reviewPosition').textContent = document.getElementById('position').value;
+                document.getElementById('reviewAnnualIncome').textContent = 'PHP ' + 
+                    parseFloat(document.getElementById('annualIncome').value || 0).toLocaleString('en-US');
+                
+                // Format employer address
+                const employerAddress = [
+                    document.getElementById('employerAddressLine').value,
+                    document.getElementById('employerBarangay').options[document.getElementById('employerBarangay').selectedIndex]?.text || '',
+                    document.getElementById('employerCity').options[document.getElementById('employerCity').selectedIndex]?.text || '',
+                    document.getElementById('employerProvince').options[document.getElementById('employerProvince').selectedIndex]?.text || '',
+                    document.getElementById('employerRegion').options[document.getElementById('employerRegion').selectedIndex]?.text || '',
+                    document.getElementById('employerZipCode').value
+                ].filter(Boolean).join(', ');
+                
+                document.getElementById('reviewEmployerAddress').textContent = employerAddress;
+            } else {
+                document.getElementById('reviewEmploymentDetails').style.display = 'none';
+            }
+            
+            // Document information
+            const validId1TypeSelect = document.getElementById('validId1Type');
+            const validId1Type = validId1TypeSelect.options[validId1TypeSelect.selectedIndex]?.text || '';
+            const validId1No = document.getElementById('validId1No').value;
+            document.getElementById('reviewValidId1').textContent = `${validId1Type} (${validId1No})`;
+            
+            const validId2TypeSelect = document.getElementById('validId2Type');
+            const validId2Type = validId2TypeSelect.options[validId2TypeSelect.selectedIndex]?.text || '';
+            const validId2No = document.getElementById('validId2No').value;
+            document.getElementById('reviewValidId2').textContent = `${validId2Type} (${validId2No})`;
+        }
+        
+        // PSGC API functions (simulated for demo)
+        function fetchRegions(selectId) {
+            const regions = [
+                { code: 'NCR', name: 'National Capital Region' },
+                { code: 'CAR', name: 'Cordillera Administrative Region' },
+                { code: 'R1', name: 'Region I (Ilocos Region)' },
+                { code: 'R2', name: 'Region II (Cagayan Valley)' },
+                { code: 'R3', name: 'Region III (Central Luzon)' },
+                { code: 'R4A', name: 'Region IV-A (CALABARZON)' },
+                { code: 'R4B', name: 'Region IV-B (MIMAROPA)' },
+                { code: 'R5', name: 'Region V (Bicol Region)' },
+                { code: 'R6', name: 'Region VI (Western Visayas)' },
+                { code: 'R7', name: 'Region VII (Central Visayas)' },
+                { code: 'R8', name: 'Region VIII (Eastern Visayas)' },
+                { code: 'R9', name: 'Region IX (Zamboanga Peninsula)' },
+                { code: 'R10', name: 'Region X (Northern Mindanao)' },
+                { code: 'R11', name: 'Region XI (Davao Region)' },
+                { code: 'R12', name: 'Region XII (SOCCSKSARGEN)' },
+                { code: 'R13', name: 'Region XIII (Caraga)' },
+                { code: 'BARMM', name: 'Bangsamoro Autonomous Region in Muslim Mindanao' }
+            ];
+            
+            const select = document.getElementById(selectId);
+            regions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region.code;
+                option.textContent = region.name;
+                select.appendChild(option);
+            });
+        }
+        
+        function fetchProvinces(regionCode, selectId) {
+            // Simulated provinces data
+            const provinces = {
+                'NCR': [
+                    { code: 'NCR-1', name: 'Metro Manila' }
+                ],
+                'R4A': [
+                    { code: 'R4A-1', name: 'Batangas' },
+                    { code: 'R4A-2', name: 'Cavite' },
+                    { code: 'R4A-3', name: 'Laguna' },
+                    { code: 'R4A-4', name: 'Quezon' },
+                    { code: 'R4A-5', name: 'Rizal' }
+                ],
+                'R3': [
+                    { code: 'R3-1', name: 'Aurora' },
+                    { code: 'R3-2', name: 'Bataan' },
+                    { code: 'R3-3', name: 'Bulacan' },
+                    { code: 'R3-4', name: 'Nueva Ecija' },
+                    { code: 'R3-5', name: 'Pampanga' },
+                    { code: 'R3-6', name: 'Tarlac' },
+                    { code: 'R3-7', name: 'Zambales' }
+                ]
+            };
+            
+            // Default provinces for other regions
+            const defaultProvinces = [
+                { code: 'P1', name: 'Province 1' },
+                { code: 'P2', name: 'Province 2' },
+                { code: 'P3', name: 'Province 3' }
+            ];
+            
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Select Province</option>';
+            
+            const provinceList = provinces[regionCode] || defaultProvinces;
+            provinceList.forEach(province => {
+                const option = document.createElement('option');
+                option.value = province.code;
+                option.textContent = province.name;
+                select.appendChild(option);
+            });
+        }
+        
+        function fetchCities(provinceCode, selectId) {
+            // Simulated cities data
+            const cities = {
+                'R4A-2': [
+                    { code: 'R4A-2-1', name: 'Bacoor' },
+                    { code: 'R4A-2-2', name: 'Cavite City' },
+                    { code: 'R4A-2-3', name: 'Dasmariñas' },
+                    { code: 'R4A-2-4', name: 'General Trias' },
+                    { code: 'R4A-2-5', name: 'Imus' },
+                    { code: 'R4A-2-6', name: 'Tagaytay' },
+                    { code: 'R4A-2-7', name: 'Trece Martires' }
+                ],
+                'NCR-1': [
+                    { code: 'NCR-1-1', name: 'Manila' },
+                    { code: 'NCR-1-2', name: 'Quezon City' },
+                    { code: 'NCR-1-3', name: 'Makati' },
+                    { code: 'NCR-1-4', name: 'Pasig' },
+                    { code: 'NCR-1-5', name: 'Taguig' },
+                    { code: 'NCR-1-6', name: 'Pasay' },
+                    { code: 'NCR-1-7', name: 'Parañaque' }
+                ]
+            };
+            
+            // Default cities for other provinces
+            const defaultCities = [
+                { code: 'C1', name: 'City 1' },
+                { code: 'C2', name: 'City 2' },
+                { code: 'C3', name: 'City 3' }
+            ];
+            
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Select City/Municipality</option>';
+            
+            const cityList = cities[provinceCode] || defaultCities;
+            cityList.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.code;
+                option.textContent = city.name;
+                select.appendChild(option);
+            });
+        }
+        
+        function fetchBarangays(cityCode, selectId) {
+            // Simulated barangays data
+            const barangays = {
+                'NCR-1-3': [
+                    { code: 'NCR-1-3-1', name: 'Poblacion' },
+                    { code: 'NCR-1-3-2', name: 'Bel-Air' },
+                    { code: 'NCR-1-3-3', name: 'San Lorenzo' },
+                    { code: 'NCR-1-3-4', name: 'Urdaneta' },
+                    { code: 'NCR-1-3-5', name: 'Magallanes' },
+                    { code: 'NCR-1-3-6', name: 'Dasmariñas' },
+                    { code: 'NCR-1-3-7', name: 'Forbes Park' }
+                ],
+                'R4A-2-5': [
+                    { code: 'R4A-2-5-1', name: 'Anabu I' },
+                    { code: 'R4A-2-5-2', name: 'Anabu II' },
+                    { code: 'R4A-2-5-3', name: 'Bayan Luma' },
+                    { code: 'R4A-2-5-4', name: 'Bucandala' },
+                    { code: 'R4A-2-5-5', name: 'Malagasang' },
+                    { code: 'R4A-2-5-6', name: 'Medicion' },
+                    { code: 'R4A-2-5-7', name: 'Poblacion' }
+                ]
+            };
+            
+            // Default barangays for other cities
+            const defaultBarangays = [
+                { code: 'B1', name: 'Barangay 1' },
+                { code: 'B2', name: 'Barangay 2' },
+                { code: 'B3', name: 'Barangay 3' }
+            ];
+            
+            const select = document.getElementById(selectId);
+            select.innerHTML = '<option value="">Select Barangay</option>';
+            
+            const barangayList = barangays[cityCode] || defaultBarangays;
+            barangayList.forEach(barangay => {
+                const option = document.createElement('option');
+                option.value = barangay.code;
+                option.textContent = barangay.name;
+                select.appendChild(option);
+            });
+        }
+    </script>
+</body>
+</html>
